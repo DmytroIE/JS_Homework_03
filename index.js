@@ -1,31 +1,28 @@
 function addLogin(logins, login) {
-  if (checkLoginValidity(login)) {
-    if (!checkIfLoginExists(logins, login)) {
-      logins.push(login);
-      alert("Логин успешно добавлен!");
-      return true;
-    } else {
-      alert("Такой логин уже используется!");
-    }
-  } else {
+  if (!checkLoginValidity(login)) {
     alert("Ошибка! Логин должен быть от 4 до 16 символов");
+    return false;
   }
-  return false;
+
+  if (checkIfLoginExists(logins, login)) {
+    alert("Такой логин уже используется!");
+    return false;
+  }
+
+  logins.push(login);
+  alert("Логин успешно добавлен!");
+  return true;
 }
 
 function checkLoginValidity(login) {
-  if (login.length >= 4 && login.length <= 16) {
-    return true;
-  }
-  return false;
+  return login.length >= 4 && login.length <= 16;
 }
 
 function checkIfLoginExists(logins, login) {
-  let check=false;
-  const loginUppercased=login.toUpperCase();
-  for(let i=0; i< logins.length; i++){
-    if (logins[i].toUpperCase()===loginUppercased)
-    check=true;
+  let check = false;
+  const loginUppercased = login.toUpperCase();
+  for (let i = 0; i < logins.length; i++) {
+    if (logins[i].toUpperCase() === loginUppercased) check = true;
   }
   return check;
 }
@@ -34,7 +31,7 @@ const logins = ["Mango", "robotGoogles", "Poly", "Aj4x1sBozz", "qwerty123"];
 let login = "";
 
 do {
-  login = prompt("Вевдите логин");
+  login = prompt("Введите логин");
 } while (login !== null && !addLogin(logins, login));
 
 console.log(logins);
